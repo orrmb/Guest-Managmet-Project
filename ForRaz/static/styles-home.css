@@ -13,7 +13,7 @@ body {
 
 h1 {
     color: #333;
-    margin-top: 100px;
+    margin-top: 150px;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -80,6 +80,7 @@ button.delete-button:hover {
     background-color: #e53935;
 }
 
+
 /* Media Query for tablets and smaller screens */
 @media (max-width: 768px) {
     form {
@@ -108,6 +109,11 @@ html, body {
     height: 100%;
     margin: 0;
     overflow: auto; /* Ensure scrolling is enabled */
+}
+
+button.search-button{
+    background-color: #ff9800; /* Orange background */
+    color: #fff; /* White text color for contrast */
 }
 
 
