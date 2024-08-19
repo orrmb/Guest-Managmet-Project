@@ -111,13 +111,8 @@ html, body {
     overflow: auto; /* Ensure scrolling is enabled */
 }
 
-button.search-button{
-    background-color: #ff9800; /* Orange background */
-    color: #fff; /* White text color for contrast */
-}
-
 button.guest-button{
-    background-color: #000000; /* black background */
+    background-color: #ff9800; /* black background */
     color: #fff; /* White text color for contrast */
 }
 
