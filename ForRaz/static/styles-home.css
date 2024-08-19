@@ -116,5 +116,10 @@ button.search-button{
     color: #fff; /* White text color for contrast */
 }
 
+button.guest-button{
+    background-color: #000000; /* black background */
+    color: #fff; /* White text color for contrast */
+}
+
 
 
