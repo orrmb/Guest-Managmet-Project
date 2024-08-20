@@ -1,55 +1,66 @@
 <!DOCTYPE html>
 <html lang="he">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>טבלת אורחים</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="static\images\guest.png" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: right;
-            direction: rtl;
-            padding: 20px;
-        }
-        table {
-            margin-top: 20px;
-            width: 100%;
-        }
-        th, td {
-            text-align: right;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        text-align: right;
+        direction: rtl;
+        padding: 20px;
+      }
+      table {
+        margin-top: 20px;
+        width: 100%;
+      }
+      th,
+      td {
+        text-align: right;
+      }
+      footer {
+        text-align: center;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1 class="text-center">טבלת אורחים</h1>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>מס' סידורי</th>
-                    <th>שם</th>
-                    <th>מספר פלאפון</th>
-                    <th>כמות אורחים</th>
-                    <th>צד</th>
-                    <th>קרבה</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in rows %}
-                <tr>
-                    <td>{{ row[0] }}</td>
-                    <td>{{ row[1] }}</td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
-                    <td>{{ row[5] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <h1 class="text-center">טבלת אורחים</h1>
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>מס' סידורי</th>
+            <th>שם</th>
+            <th>מספר פלאפון</th>
+            <th>כמות אורחים</th>
+            <th>צד</th>
+            <th>קירבה</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+          <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-</body>
+    <footer>
+      <div id="total_guest">סך כל האורחים: {{ total_guests }}</div>
+    </footer>
+  </body>
 </html>

@@ -1,34 +1,76 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>טבלה ריקה</title>
-</head>
-<body>
-    <h1 dir="rtl">אין מוזמנים!</h1>
-<p dir="rtl">היי, הטבלה ריקה מאורחים...<br>
-    נסה/י להוסיף אורחים בהתאם לדרישות(שם, מספר פלאפון, אורחים הצפויים להגיע וכו')<br> אם אינך יכול/ה למלא כנראה שאף אחד לא אוהב אותך ותתחתנו ברבנות בבקשה. </p>
-<img src="static/images/noguest.jpeg">
-</body>
-<style>
-    h1{
-      text-align: center;
-      font-size: 100px
-        }
-    p{
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>טבלת אורחים</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
         text-align: center;
-        font-size: 39px
-    }
-    body{
-        font-family: Arial;
-    }
-    img{
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-</style>
+        direction: rtl;
+        padding: 20px;
+      }
+
+      .empty-message {
+        margin-top: 50px;
+      }
+
+      .empty-message h1 {
+        font-size: 3em;
+        color: #ff5722;
+        animation: fadeIn 2s ease-in-out;
+      }
+
+      .empty-message p {
+        font-size: 1.5em;
+        color: #555;
+        animation: fadeIn 3s ease-in-out;
+      }
+
+      .empty-icon {
+        font-size: 100px;
+        color: #ff5722;
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-30px);
+        }
+        60% {
+          transform: translateY(-15px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="empty-message">
+      <div class="empty-icon">😞</div>
+      <h1>אין נתונים להצגה</h1>
+      <p>הטבלה ריקה כרגע.נסה להוסיף אורחים!</p>
+    </div>
+  </body>
 </html>

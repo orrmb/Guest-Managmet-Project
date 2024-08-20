@@ -101,12 +101,13 @@ def guest_table():
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM people')
         myresulet = cursor.fetchall()
+        total_guests = sum(row[3] for row in myresulet)
     if not myresulet:
         logger.info('The table is empty')
         return render_template('empty-table.html')
     else:
         logger.info('Displaying the table in route /guest_table')
-        return render_template('guest_table.html', rows=myresulet)
+        return render_template('guest_table.html', rows=myresulet, total_guests=total_guests)
 
 
 
