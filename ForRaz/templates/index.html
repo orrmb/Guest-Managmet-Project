@@ -16,52 +16,105 @@
     <title>אירגון חתונה</title>
   </head>
   <body>
-    <form id="registrationForm" action="/submit" method="POST">
-      <h1>אירגון Excel לחתונה</h1>
-      <label for="name">שם:</label>
-      <input type="text" id="name" name="name" required />
+    <header>
+      <div class="header-content">
+        <div id="dateContainer" class="dateContainer"></div>
+        <h1>אירגון חתונה</h1>
+        <div id="clock" class="clock"></div>
+      </div>
+    </header>
 
-      <label for="phone">מספר פלאפון:</label>
-      <input type="text" id="phone" name="phone" required />
+    <main>
+      <form id="registrationForm" action="/submit" method="POST">
+        <br /><br />
+        <label for="name">שם:</label>
+        <input type="text" id="name" name="name" required />
 
-      <label for="number">כמות אורחים שצפויים להגיע(כולל את הבן אדם):</label>
-      <input type="number" id="number" name="number" min="1" max="5" required />
+        <label for="phone">מספר פלאפון:</label>
+        <input type="text" id="phone" name="phone" required />
 
-      <label for="side">צד:</label>
-      <select name="side" id="side" required>
-        <option value="">--בחר אופציה--</option>
-        <option value="חתן">חתן</option>
-        <option value="אבא חתן">אבא חתן</option>
-        <option value="אמא חתן">אמא חתן</option>
-        <option value="כלה">כלה</option>
-        <option value="אבא כלה">אבא כלה</option>
-        <option value="אמא כלה">אמא כלה</option>
-      </select>
+        <label for="number">כמות אורחים שצפויים להגיע (כולל את הבן אדם):</label>
+        <input
+          type="number"
+          id="number"
+          name="number"
+          min="1"
+          max="5"
+          required
+        />
 
-      <label for="relationship">קירבת האורחים:</label>
-      <select name="relationship" id="relationship" required>
-        <option value="">--בחר אופציה--</option>
-        <option value="משפחה קרובה">משפחה קרובה</option>
-        <option value="משפחה רחוקה">משפחה רחוקה</option>
-        <option value="חברים מהבית">חברים מהבית</option>
-        <option value="חברים מהעבודה">חברים מהעבודה</option>
-      </select>
+        <label for="side">צד:</label>
+        <select name="side" id="side" required>
+          <option value="">--בחר אופציה--</option>
+          <option value="חתן">חתן</option>
+          <option value="אבא חתן">אבא חתן</option>
+          <option value="אמא חתן">אמא חתן</option>
+          <option value="כלה">כלה</option>
+          <option value="אבא כלה">אבא כלה</option>
+          <option value="אמא כלה">אמא כלה</option>
+        </select>
 
-      <input type="submit" value="שמירה" />
-    </form>
+        <label for="relationship">קירבת האורחים:</label>
+        <select name="relationship" id="relationship" required>
+          <option value="">--בחר אופציה--</option>
+          <option value="משפחה קרובה">משפחה קרובה</option>
+          <option value="משפחה רחוקה">משפחה רחוקה</option>
+          <option value="חברים מהבית">חברים מהבית</option>
+          <option value="חברים מהעבודה">חברים מהעבודה</option>
+        </select>
 
-    <!-- Form to download Excel -->
-    <form id="downloadForm" action="/download" method="GET">
-      <button type="submit">הורדת Excel</button>
-    </form>
+        <input type="submit" value="שמירה" />
+      </form>
 
-    <form class="guestForm" action="/guest_table" method="GET">
-      <button type="submit" class="guest-button">הצגת טבלה</button>
-    </form>
+      <div class="button-group">
+        <form id="downloadForm" action="/download" method="GET">
+          <button type="submit" class="btn download-button">הורדת Excel</button>
+        </form>
 
-    <!-- Form to delete all records -->
-    <form id="DeleteForm" action="/clear" method="POST">
-      <button type="submit" class="delete-button">מחק הכל</button>
-    </form>
+        <form class="guestForm" action="/guest_table" method="GET">
+          <button type="submit" class="btn guest-button">הצגת טבלה</button>
+        </form>
+
+        <form id="DeleteForm" action="/clear" method="POST">
+          <button type="submit" class="btn delete-button">מחק הכל</button>
+        </form>
+      </div>
+
+      <div class="imageContainer" id="imageContainer">
+        <img
+          src="static\images\תמונה אדר ואלעד.jpg"
+          alt="תמונה של אדר ואלעד צד ימין"
+          class="adar"
+        />
+        <img
+          src="static\images\תמונת נישואין אדר.jpg"
+          alt="תמונה של טבעת אדר ואלעד"
+          class="ring"
+        />
+      </div>
+    </main>
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.getElementById("clock").textContent = timeString;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock(); // Initial call to display clock immediately
+    </script>
+    <script>
+      function displayDate() {
+        const today = new Date();
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        const dateStr = today.toLocaleDateString("en-US", options);
+        document.getElementById("dateContainer").innerText = dateStr;
+      }
+
+      displayDate();
+    </script>
   </body>
 </html>

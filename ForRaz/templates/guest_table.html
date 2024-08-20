@@ -3,37 +3,126 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>טבלת אורחים</title>
+    <title>טבלת מוזמנים</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/x-icon" href="static\images\guest.png" />
+    <link rel="icon" type="image/x-icon" href="static/images/guest.png" />
     <style>
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+        font-family: "Georgia", serif;
+        background-color: #f9f5f2; /* Creamy background for a wedding feel */
         text-align: right;
         direction: rtl;
         padding: 20px;
       }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .btn-back {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background-color: #bfa6a0; /* Soft beige */
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      .btn-back:hover {
+        background-color: #a58f7d; /* Slightly darker beige */
+      }
+
+      h1 {
+        color: #6d4c41; /* Elegant brown */
+        margin-bottom: 20px;
+        font-size: 2.5em;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .total_guest {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 1.2em;
+        color: #6d4c41; /* Matching brown */
+      }
+
       table {
         margin-top: 20px;
         width: 100%;
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
       }
+
       th,
       td {
         text-align: right;
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
       }
-      footer {
+
+      th {
+        background-color: #bfa6a0; /* Soft beige */
+        color: #ffffff;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fafafa; /* Light gray */
+      }
+
+      tbody tr:hover {
+        background-color: #f5e9e3; /* Light peach highlight */
+      }
+
+      .search-container {
         text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .search-input {
+        width: 60%;
+        padding: 10px;
+        border: 1px solid #bfa6a0;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+      }
+
+      .search-input:focus {
+        border-color: #a58f7d; /* Darker beige */
+        outline: none;
       }
     </style>
   </head>
   <body>
+    <button class="btn-back" onclick="window.location.href='/'">
+      חזרה לדף הבית
+    </button>
     <div class="container">
-      <h1 class="text-center">טבלת אורחים</h1>
+      <h1>טבלת מוזמנים</h1>
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="חפש מוזמן..."
+          oninput="searchTable()"
+        />
+      </div>
+      <p class="total_guest">סך כל מוזמנים: {{ total_guests }}</p>
       <table class="table table-striped table-bordered">
         <thead class="thead-dark">
           <tr>
@@ -45,7 +134,7 @@
             <th>קירבה</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="guestTable">
           {% for row in rows %}
           <tr>
             <td>{{ row[0] }}</td>
@@ -59,8 +148,27 @@
         </tbody>
       </table>
     </div>
-    <footer>
-      <div id="total_guest">סך כל האורחים: {{ total_guests }}</div>
-    </footer>
+
+    <script>
+      function searchTable() {
+        const input = document.querySelector(".search-input");
+        const filter = input.value.toLowerCase();
+        const rows = document.querySelectorAll("#guestTable tr");
+
+        rows.forEach((row) => {
+          const cells = row.getElementsByTagName("td");
+          let match = false;
+
+          for (let i = 0; i < cells.length; i++) {
+            if (cells[i].textContent.toLowerCase().includes(filter)) {
+              match = true;
+              break;
+            }
+          }
+
+          row.style.display = match ? "" : "none";
+        });
+      }
+    </script>
   </body>
 </html>
