@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="form-wrapper">
+    <div class="imageContainer left">
+      <img
+        src="tests_porject\static\images\תמונת נישואין אדר.jpg"
+        alt="Left Image"
+      />
+    </div>
+
+    <form id="registrationForm" action="/submit" method="POST">
+      <br /><br /><br />
+      <label for="name">שם:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="phone">מספר פלאפון:</label>
+      <input type="text" id="phone" name="phone" required />
+
+      <label for="number">כמות אורחים שצפויים להגיע (כולל את הבן אדם):</label>
+      <input type="number" id="number" name="number" min="1" max="5" required />
+
+      <label for="side">צד:</label>
+      <select name="side" id="side" required>
+        <option value="">--בחר אופציה--</option>
+        <option value="חתן">חתן</option>
+        <option value="אבא חתן">אבא חתן</option>
+        <option value="אמא חתן">אמא חתן</option>
+        <option value="כלה">כלה</option>
+        <option value="אבא כלה">אבא כלה</option>
+        <option value="אמא כלה">אמא כלה</option>
+      </select>
+
+      <label for="relationship">קירבת האורחים:</label>
+      <select name="relationship" id="relationship" required>
+        <option value="">--בחר אופציה--</option>
+        <option value="משפחה קרובה">משפחה קרובה</option>
+        <option value="משפחה רחוקה">משפחה רחוקה</option>
+        <option value="חברים מהבית">חברים מהבית</option>
+        <option value="חברים מהעבודה">חברים מהעבודה</option>
+      </select>
+
+      <input type="submit" value="שמירה" />
+    </form>
+
+    <div class="imageContainer right">
+      <img
+        src="tests_porject\static\images\תמונה אדר ואלעד.jpg"
+        alt="Right Image"
+      />
+    </div>
+  </div>
+</div>
