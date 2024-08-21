@@ -24,7 +24,7 @@
       </div>
     </header>
 
-    <main>
+    <div class="main-content">
       <div class="form-image-container">
         <div class="imageContainer">
           <img
@@ -73,7 +73,7 @@
             <option value="חברים מהעבודה">חברים מהעבודה</option>
           </select>
 
-          <input type="submit" value="שמירה" />
+          <input type="submit" value="שמירה 💾" />
         </form>
 
         <div class="imageContainer">
@@ -87,20 +87,73 @@
 
       <div class="button-group">
         <form id="downloadForm" action="/download" method="GET">
-          <button type="submit" class="btn download-button">הורדת Excel</button>
+          <button type="submit" class="btn download-button">
+            הורדת Excel 📑
+          </button>
         </form>
 
         <form class="guestForm" action="/guest_table" method="GET">
-          <button type="submit" class="btn guest-button">הצגת טבלה</button>
+          <button type="submit" class="btn guest-button">הצגת טבלה 📖</button>
         </form>
 
         <form id="DeleteForm" action="/clear" method="POST">
-          <button type="submit" class="btn delete-button">מחק הכל</button>
+          <button type="submit" class="btn delete-button">
+            מחק הכל <br />⚠️
+          </button>
         </form>
       </div>
-    </main>
+    </div>
 
     <script>
+      function createEmojiRain() {
+        const emojiContainer = document.createElement("div");
+        emojiContainer.classList.add("emoji-container");
+        document.body.appendChild(emojiContainer);
+
+        const emoji = "💍"; // Wedding ring emoji
+        const numberOfEmojis = 100; // Number of emojis
+        for (let i = 0; i < numberOfEmojis; i++) {
+          let emojiElement = document.createElement("div");
+          emojiElement.textContent = emoji;
+          emojiElement.classList.add("emoji");
+          emojiElement.style.left = Math.random() * 100 + "vw";
+          emojiElement.style.top = Math.random() * 100 + "vh";
+          emojiElement.style.opacity = Math.random();
+          emojiElement.style.fontSize = Math.random() * 30 + "px"; // Random size
+          emojiContainer.appendChild(emojiElement);
+
+          animateEmoji(emojiElement);
+        }
+
+        setInterval(() => {
+          for (let i = 0; i < numberOfEmojis; i++) {
+            let emojiElement = document.createElement("div");
+            emojiElement.textContent = emoji;
+            emojiElement.classList.add("emoji");
+            emojiElement.style.left = Math.random() * 100 + "vw";
+            emojiElement.style.top = "-10vh"; // Start above the viewport
+            emojiElement.style.opacity = Math.random();
+            emojiElement.style.fontSize = Math.random() * 30 + "px"; // Random size
+            emojiContainer.appendChild(emojiElement);
+
+            animateEmoji(emojiElement);
+          }
+        }, 5000); // Add new emojis every 5 seconds
+      }
+
+      function animateEmoji(emojiElement) {
+        let posY = parseFloat(emojiElement.style.top);
+        const interval = setInterval(() => {
+          posY += 2; // Adjust fall speed
+          emojiElement.style.top = posY + "px";
+          if (posY > window.innerHeight) {
+            emojiElement.remove(); // Remove emoji when it goes off screen
+            clearInterval(interval);
+          }
+        }, 50);
+      }
+
+      createEmojiRain();
       function updateClock() {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, "0");
@@ -110,17 +163,15 @@
         document.getElementById("clock").textContent = timeString;
       }
 
-      setInterval(updateClock, 1000);
-      updateClock(); // Initial call to display clock immediately
-    </script>
-    <script>
       function displayDate() {
         const today = new Date();
         const options = { year: "numeric", month: "long", day: "numeric" };
-        const dateStr = today.toLocaleDateString("en-US", options);
+        const dateStr = today.toLocaleDateString("he-IL", options);
         document.getElementById("dateContainer").innerText = dateStr;
       }
 
+      setInterval(updateClock, 1000);
+      updateClock(); // Initial call to display clock immediately
       displayDate();
     </script>
   </body>

@@ -5,51 +5,58 @@ body {
     padding: 0;
     text-align: right;
     direction: rtl;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto; /* Allow vertical scroll */
+    position: relative; /* Positioning context for emoji rain */
+    min-height: 100vh; /* Ensure body takes at least viewport height */
 }
 
 header {
-    font-family: 'Arial';
+
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #4b6584;
+    background-color: #000000;
     color: white;
     padding: 15px;
-    text-align: left;
-    z-index: 1000;
+    z-index: 1000; /* Ensure header is on top of other elements */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .dateContainer {
-    margin-right: 30px;
+    margin-right: 20px; /* Changed to margin-left for positioning */
 }
 
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 h1 {
     margin: 0;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Arial', sans-serif;
     text-align: center;
     font-size: 2em;
     color: #f7f1e3;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 100px auto 20px auto;
-    padding: 20px;
+.main-content {
+    padding: 100px 20px 20px; /* Add padding to avoid overlap with header */
+    position: relative; /* Ensure content is above the emoji rain */
+    z-index: 1; /* Content above the emoji rain */
 }
 
 .form-image-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 100px auto;
+    margin: 5px auto; /* Adjust margin for spacing */
     max-width: 1200px;
     background-color: #ffffff;
     padding: 30px;
@@ -86,6 +93,7 @@ form {
     flex-direction: column;
     align-items: center;
 }
+
 form label {
     display: block;
     margin-bottom: 10px;
@@ -94,6 +102,7 @@ form label {
     width: 100%;
     text-align: right;
 }
+
 form input[type="text"],
 form input[type="number"],
 form select {
@@ -104,64 +113,73 @@ form select {
     border-radius: 8px;
     box-sizing: border-box;
     font-size: 1em;
-    color: #2d3436;
 }
+
 form input[type="submit"] {
-    background-color: #60a3bc;
+    background-color: #4b6584;
     color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.2em;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 20px;
-    width: 50%;
-    text-align: center;
+    transition: background-color 0.3s;
 }
+
 form input[type="submit"]:hover {
-    background-color: #3c6382;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    color: #f7f1e3;
+    background-color: #2d3436;
 }
+
 .button-group {
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    flex-wrap: wrap; /* Ensure buttons wrap if they exceed screen width */
 }
-.button-group form {
-    margin: 0 10px;
-}
-button.btn {
-    width: 150px;
+
+.btn {
+    background-color: #4b6584;
+    color: white;
+    border: none;
     padding: 10px 20px;
-    font-size: 1.1em;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    text-align: center;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 5px;
 }
-button.download-button,
-button.guest-button,
-button.delete-button {
-    background-color: #60a3bc;
-    color: white;
-}
-button.download-button:hover,
-button.guest-button:hover,
-button.delete-button:hover {
-    background-color: #3c6382;
+
+.btn:hover {
+    background-color: #2d3436;
     transform: scale(1.05);
 }
-button.guest-button {
-    background-color: orange;
+
+.download-button {
+    background-color: #27ae60;
 }
-button.guest-button:hover {
-    background-color: rgb(189, 126, 9);
+
+.guest-button {
+    background-color: #3498db;
 }
-button.delete-button {
-    background-color: #d32f2f;
+
+.delete-button {
+    background-color: #e74c3c;
 }
-button.delete-button:hover {
-    background-color: #c62828;
+
+.emoji-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* Ignore mouse events */
+    z-index: 0; /* Place behind other content */
 }
+
+.emoji {
+    position: absolute;
+    white-space: nowrap;
+    pointer-events: none; /* Ignore mouse events */
+}
+
