@@ -116,7 +116,7 @@ form select {
 }
 
 form input[type="submit"] {
-    background-color: #4b6584;
+    background-color: #242424;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -155,15 +155,15 @@ form input[type="submit"]:hover {
 }
 
 .download-button {
-    background-color: #27ae60;
+    background-color: #242424;
 }
 
 .guest-button {
-    background-color: #3498db;
+    background-color: #242424;
 }
 
 .delete-button {
-    background-color: #e74c3c;
+    background-color: #242424;
 }
 
 .emoji-container {
