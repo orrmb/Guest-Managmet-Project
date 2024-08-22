@@ -100,7 +100,10 @@
         </form>
 
         <form id="DeleteForm" action="/clear" method="POST">
-          <button type="submit" class="btn delete-button">מחק הכל ⚠️</button>
+          <button type="submit" class="btn delete-button">
+            <br />
+            מחק הכל <br />⚠️
+          </button>
         </form>
       </div>
     </div>
@@ -111,7 +114,7 @@
         emojiContainer.classList.add("emoji-container");
         document.body.appendChild(emojiContainer);
 
-        const emoji = "💍        🖤"; // Wedding ring emoji
+        const emoji = "💍      🖤"; // Wedding ring emoji
         const numberOfEmojis = 100; // Number of emojis
         for (let i = 0; i < numberOfEmojis; i++) {
           let emojiElement = document.createElement("div");

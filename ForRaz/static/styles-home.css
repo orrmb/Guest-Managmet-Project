@@ -23,8 +23,7 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: block;
     text-align: center;
-  }
-
+}
 
 .main-content {
     padding: 100px 20px 20px; /* Add padding to avoid overlap with header */
@@ -99,7 +98,7 @@ form select {
 }
 
 form input[type="submit"] {
-    background-color: #242424;
+    background-color: #000000;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -122,28 +121,25 @@ form input[type="submit"]:hover {
     flex-wrap: wrap; /* Ensure buttons wrap if they exceed screen width */
 }
 
-.btn {
-    background-color: #4b6584;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s, transform 0.3s;
-    margin: 5px;
-    width: 150px; /* Set a fixed width for all buttons */
-    text-align: center; /* Center text inside buttons */
+.btn, .download-button, .guest-button, .delete-button {
+    background-color: #000000; /* צבע רקע אחיד לכל הכפתורים */
+    color: white; /* צבע טקסט אחיד לכל הכפתורים */
+    border: none; /* אין גבולות לכפתורים */
+    border-radius: 8px; /* פינות מעוגלות לכפתורים */
+    cursor: pointer; /* סמן עכבר ידני */
+    font-size: 1.2em; /* גודל טקסט אחיד לכל הכפתורים */
+    transition: background-color 0.3s, transform 0.3s; /* אפקטי מעבר */
+    margin: 5px; /* רווחים מסביב לכל כפתור */
+    padding: 10px 20px; /* רווח פנימי אחיד לכפתורים */
+    width: 150px; /* רוחב אחיד לכל הכפתורים */
+    text-align: center; /* יישור טקסט במרכז */
 }
 
-.btn:hover {
-    background-color: #2d3436;
-    transform: scale(1.05);
+.btn:hover, .download-button:hover, .guest-button:hover, .delete-button:hover {
+    background-color: #2d3436; /* צבע רקע חדש כשמרחפים על הכפתור */
+    transform: scale(1.05); /* אפקט התקרבות בעת רחיפה */
 }
 
-.download-button, .guest-button, .delete-button {
-    background-color: #242424;
-}
 
 .emoji-container {
     position: fixed;
@@ -153,7 +149,7 @@ form input[type="submit"]:hover {
     height: 100%;
     overflow: hidden;
     pointer-events: none; /* Ignore mouse events */
-    z-index: 0; /* Place behind other content */
+    z-index: -1; /* Place behind other content */
 }
 
 .emoji {
