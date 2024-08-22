@@ -22,7 +22,6 @@
       }
 
       header {
-        font-family: "Arial";
         position: fixed;
         top: 0;
         left: 0;
@@ -30,30 +29,11 @@
         background-color: #000000;
         color: white;
         padding: 15px;
-        text-align: left;
-        z-index: 1000;
+        z-index: 1000; /* Ensure header is on top of other elements */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .dateContainer {
-        margin-right: 30px;
-        color: #ffffff;
-      }
-
-      .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      h1 {
-        margin: 0;
-        font-family: "Playfair Display", serif;
+        display: block;
         text-align: center;
-        font-size: 2em;
-        color: #000000;
       }
-
       .container {
         max-width: 1200px;
         margin: 100px auto 20px auto;
@@ -100,6 +80,7 @@
       .search-container {
         text-align: center;
         margin-bottom: 20px;
+        margin-top: 10px;
       }
 
       .total_guest {
@@ -146,33 +127,17 @@
         display: flex;
         justify-content: center;
       }
-
-      #clock {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        color: white;
-        font-size: 18px;
-        z-index: 1001;
-      }
-
-      #date {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        color: white;
-        font-size: 18px;
-        z-index: 1001;
-      }
     </style>
   </head>
   <body>
     <header>
-      <div id="clock"></div>
-      <div id="date"></div>
+      <div class="header-content">
+        <div id="date" class="date"></div>
+        <h1>אירגון חתונה</h1>
+        <div id="clock" class="clock"></div>
+      </div>
     </header>
     <div class="container">
-      <h1>טבלת מוזמנים</h1>
       <div class="search-container">
         <input
           type="text"
@@ -241,12 +206,10 @@
         });
       }
 
-      function updateClock() {
+      function displayDate() {
         const now = new Date();
-        const clock = document.getElementById("clock");
         const date = document.getElementById("date");
 
-        clock.innerHTML = now.toLocaleTimeString();
         date.innerHTML = now.toLocaleDateString("he-IL", {
           weekday: "long",
           year: "numeric",
@@ -254,9 +217,18 @@
           day: "numeric",
         });
       }
+      displayDate();
 
-      setInterval(updateClock, 1000);
-      updateClock();
+      function displayClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.getElementById("clock").textContent = timeString;
+      }
+      setInterval(displayClock, 1000);
+      displayClock();
     </script>
   </body>
 </html>

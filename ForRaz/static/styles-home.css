@@ -21,29 +21,10 @@ header {
     padding: 15px;
     z-index: 1000; /* Ensure header is on top of other elements */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.dateContainer {
-    margin-left: 20px; /* Changed to margin-left for positioning */
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-h1 {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
+    display: block;
     text-align: center;
-    font-size: 2em;
-    color: #f7f1e3;
-}
+  }
+
 
 .main-content {
     padding: 100px 20px 20px; /* Add padding to avoid overlap with header */
@@ -61,6 +42,7 @@ h1 {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    margin-top: 35px;
 }
 
 .imageContainer {
@@ -125,7 +107,7 @@ form input[type="submit"] {
     cursor: pointer;
     font-size: 1.2em;
     transition: background-color 0.3s;
-    margin-top: 20px; /* Space above the button */
+    margin-top: 45px; /* Space above the button */
 }
 
 form input[type="submit"]:hover {
@@ -150,6 +132,8 @@ form input[type="submit"]:hover {
     font-size: 1.2em;
     transition: background-color 0.3s, transform 0.3s;
     margin: 5px;
+    width: 150px; /* Set a fixed width for all buttons */
+    text-align: center; /* Center text inside buttons */
 }
 
 .btn:hover {
@@ -157,15 +141,7 @@ form input[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-.download-button {
-    background-color: #242424;
-}
-
-.guest-button {
-    background-color: #242424;
-}
-
-.delete-button {
+.download-button, .guest-button, .delete-button {
     background-color: #242424;
 }
 

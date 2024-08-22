@@ -18,7 +18,7 @@
   <body>
     <header>
       <div class="header-content">
-        <div id="dateContainer" class="dateContainer"></div>
+        <div id="date" class="date"></div>
         <h1>אירגון חתונה</h1>
         <div id="clock" class="clock"></div>
       </div>
@@ -100,9 +100,7 @@
         </form>
 
         <form id="DeleteForm" action="/clear" method="POST">
-          <button type="submit" class="btn delete-button">
-            מחק הכל <br />⚠️
-          </button>
+          <button type="submit" class="btn delete-button">מחק הכל ⚠️</button>
         </form>
       </div>
     </div>
@@ -113,7 +111,7 @@
         emojiContainer.classList.add("emoji-container");
         document.body.appendChild(emojiContainer);
 
-        const emoji = "💍🖤"; // Wedding ring emoji
+        const emoji = "💍        🖤"; // Wedding ring emoji
         const numberOfEmojis = 100; // Number of emojis
         for (let i = 0; i < numberOfEmojis; i++) {
           let emojiElement = document.createElement("div");
@@ -157,6 +155,7 @@
       }
 
       createEmojiRain();
+
       function updateClock() {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, "0");
@@ -167,10 +166,15 @@
       }
 
       function displayDate() {
-        const today = new Date();
-        const options = { year: "numeric", month: "long", day: "numeric" };
-        const dateStr = today.toLocaleDateString("he-IL", options);
-        document.getElementById("dateContainer").innerText = dateStr;
+        const now = new Date();
+        const date = document.getElementById("date");
+
+        date.innerHTML = now.toLocaleDateString("he-IL", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
       }
 
       setInterval(updateClock, 1000);
