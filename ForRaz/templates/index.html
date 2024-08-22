@@ -44,14 +44,30 @@
           <label for="number"
             >כמות אורחים שצפויים להגיע (כולל את הבן אדם):</label
           >
-          <input
-            type="number"
-            id="number"
-            name="number"
-            min="1"
-            max="5"
-            required
-          />
+          <div class="guest-input-group">
+            <button
+              type="button"
+              class="btn guest-button"
+              onclick="decrement()"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              id="number"
+              name="number"
+              min="1"
+              max="5"
+              value="1"
+            />
+            <button
+              type="button"
+              class="btn guest-button"
+              onclick="increment()"
+            >
+              +
+            </button>
+          </div>
 
           <label for="side">צד:</label>
           <select name="side" id="side" required>
@@ -183,6 +199,17 @@
       setInterval(updateClock, 1000);
       updateClock(); // Initial call to display clock immediately
       displayDate();
+      function increment() {
+        const numGuestsInput = document.getElementById("number");
+        numGuestsInput.value = parseInt(numGuestsInput.value) + 1;
+      }
+
+      function decrement() {
+        const numGuestsInput = document.getElementById("number");
+        if (parseInt(numGuestsInput.value) > 1) {
+          numGuestsInput.value = parseInt(numGuestsInput.value) - 1;
+        }
+      }
     </script>
   </body>
 </html>
