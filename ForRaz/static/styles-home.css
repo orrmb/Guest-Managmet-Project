@@ -18,7 +18,7 @@ header {
     width: 100%;
     background-color: #000000;
     color: white;
-    padding: 15px;
+    padding: 10px;
     z-index: 1000; /* Ensure header is on top of other elements */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: block;
@@ -106,7 +106,7 @@ form input[type="submit"] {
     cursor: pointer;
     font-size: 1.2em;
     transition: background-color 0.3s;
-    margin-top: 45px; /* Space above the button */
+    margin-top: 50px; /* Space above the button */
 }
 
 form input[type="submit"]:hover {

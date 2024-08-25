@@ -28,7 +28,7 @@
         width: 100%;
         background-color: #000000;
         color: white;
-        padding: 15px;
+        padding: 10px;
         z-index: 1000; /* Ensure header is on top of other elements */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         display: block;
@@ -51,7 +51,7 @@
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
-        text-align: right;
+        text-align: center;
       }
 
       th,
@@ -104,7 +104,8 @@
         outline: none;
       }
 
-      button.btn {
+      button.btn,
+      .save {
         width: 150px;
         padding: 10px 20px;
         font-size: 1.1em;
@@ -117,7 +118,8 @@
         margin: 10px;
       }
 
-      button:hover {
+      button,
+      .save:hover {
         background-color: #333333;
         transform: scale(1.05);
         color: white;
@@ -127,6 +129,9 @@
         margin-top: 20px;
         display: flex;
         justify-content: center;
+      }
+      button.save {
+        align-items: center;
       }
     </style>
   </head>
@@ -152,23 +157,46 @@
         <table class="table table-striped table-bordered">
           <thead class="thead-dark">
             <tr>
-              <th>מס' סידורי</th>
               <th>שם</th>
               <th>מספר פלאפון</th>
               <th>כמות אורחים</th>
               <th>צד</th>
               <th>קירבה</th>
+              <th>פעולה</th>
             </tr>
           </thead>
           <tbody id="guestTable">
             {% for row in rows %}
-            <tr>
-              <td>{{ row[0] }}</td>
-              <td>{{ row[1] }}</td>
-              <td>{{ row[2] }}</td>
-              <td>{{ row[3] }}</td>
-              <td>{{ row[4] }}</td>
-              <td>{{ row[5] }}</td>
+            <tr data-id="{{ row[0] }}">
+              <td class="editable">{{ row[1] }}</td>
+              <td class="editable">{{ row[2] }}</td>
+              <td class="editable">{{ row[3] }}</td>
+              <td class="editable">{{ row[4] }}</td>
+              <td class="editable">{{ row[5] }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  onclick="editGuest(this)"
+                >
+                  עדכון
+                </button>
+                <button
+                  type="button"
+                  class="save-btn"
+                  style="display: none"
+                  onclick="saveGuest(this)"
+                >
+                  שמירה
+                </button>
+                <button
+                  type="button"
+                  class="delete-btn"
+                  onclick="deleteGuest(this)"
+                >
+                  מחיקה
+                </button>
+              </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -230,6 +258,132 @@
       }
       setInterval(displayClock, 1000);
       displayClock();
+
+      function editGuest(button) {
+        const row = button.closest("tr");
+        const saveBtn = row.querySelector(".save-btn");
+        const editBtn = row.querySelector(".edit-btn");
+
+        row.querySelectorAll(".editable").forEach((td, index) => {
+          const originalValue = td.textContent;
+
+          let input;
+          if (index === 3) {
+            const arraySide = [
+              "חתן",
+              "אבא חתן",
+              "אמא חתן",
+              "כלה",
+              "אבא כלה",
+              "אמא כלה",
+            ];
+            input = document.createElement("select");
+            arraySide.forEach((value) => {
+              const option = document.createElement("option");
+              option.value = value;
+              option.textContent = value;
+              if (value === originalValue) {
+                option.selected = true;
+              }
+              input.appendChild(option);
+            });
+          } else if (index === 4) {
+            const arrayRelationship = [
+              "משפחה קרובה",
+              "משפחה רחוקה",
+              "חברים מהבית",
+              "חברים מהעבודה",
+            ];
+            input = document.createElement("select");
+            arrayRelationship.forEach((value) => {
+              const option = document.createElement("option");
+              option.value = value;
+              option.textContent = value;
+              if (value === originalValue) {
+                option.selected = true;
+              }
+              input.appendChild(option);
+            });
+          } else if (index === 2) {
+            input = document.createElement("input");
+            input.type = "number";
+            input.value = originalValue;
+          } else {
+            input = document.createElement("input");
+            input.value = originalValue;
+          }
+
+          input.style.width = "100%";
+          td.textContent = "";
+          td.appendChild(input);
+        });
+
+        editBtn.style.display = "none";
+        saveBtn.style.display = "inline-block";
+      }
+
+      function saveGuest(button) {
+        const row = button.closest("tr");
+        const saveBtn = row.querySelector(".save-btn");
+        const editBtn = row.querySelector(".edit-btn");
+
+        const id = row.getAttribute("data-id");
+        const inputs = row.querySelectorAll("input, select");
+        const values = Array.from(inputs).map((input) => input.value);
+
+        fetch("/edit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            id: id,
+            name: values[0],
+            phone: values[1],
+            number: values[2],
+            side: values[3],
+            relationship: values[4],
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // עדכון המידע בטבלה
+            inputs.forEach((input, index) => {
+              input.parentElement.textContent = input.value;
+            });
+
+            // הסתרת כפתור השמירה והצגת כפתור העריכה
+            saveBtn.style.display = "none";
+            editBtn.style.display = "inline-block";
+
+            // עדכון סך כל המוזמנים
+            document.querySelector(
+              ".total_guest"
+            ).textContent = `סך כל מוזמנים: ${data.total_guests}`;
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function deleteGuest(button) {
+        const row = button.closest("tr");
+        const id = row.getAttribute("data-id");
+
+        fetch("/delete", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ id: id }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            row.remove();
+            document.querySelector(
+              ".total_guest"
+            ).textContent = `סך כל מוזמנים: ${data.total_guests}`;
+          })
+          .catch((error) => console.error("Error:", error));
+      }
     </script>
   </body>
 </html>
