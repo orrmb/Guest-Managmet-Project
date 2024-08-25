@@ -22,6 +22,7 @@ def init_db():
         ''')
         conn.commit()
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
