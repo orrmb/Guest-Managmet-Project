@@ -1,0 +1,49 @@
+body {
+    background-color: yellowgreen;
+  }
+
+  button{
+    display: block;
+    border-radius: 5px;
+    color: var(--clr-accent);
+    font-size: 2rem;
+    border: 10px solid var(--clr-accent);
+    padding: 10px;
+    margin-top: 43%;
+    margin-left: 43%;
+    position: absolute;
+    width: 290px;
+    height: 100px;
+    top: -170px;
+    outline: 1px solid black;
+  }
+
+  button:hover{
+    background-color: black;
+    transform: translateY(-10px);
+    transition-delay: 0.5;
+    transition: ease;  
+}
+
+button:active {
+    box-shadow: 1px 0px 1px #203891,0px 1px 1px #3852b1,2px 1px 1px #203891,1px 2px 1px #3852b1,3px 2px 1px #203891;
+  }
+
+button:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: -5px;
+    bottom: -5px;
+    outline: 1px solid black;
+    border-radius: 5px;
+  }
+  button:active:after {
+    border-radius: 5px;
+    top: -3px;
+    left: -3px;
+    right: -2px;
+    bottom: -2px;
+  }
+
+      
