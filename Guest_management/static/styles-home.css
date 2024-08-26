@@ -20,7 +20,7 @@ header {
   color: white;
   padding: 10px;
   z-index: 1000; /* Ensure header is on top of other elements */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 10%);
+  box-shadow: 0 4px 8px rgba(0 0 0 / 10%);
   display: block;
   text-align: center;
 }
@@ -64,11 +64,11 @@ header {
 }
 
 form {
-  border: 2px solid #000000; /* Black border */
+  border: 2px solid #000; /* Black border */
   border-radius: 8px; /* Rounded corners, optional */
   padding: 20px; /* Space between border and content */
-  background-color: #ffffff; /* Background color inside the form */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 20%); /* Optional shadow for better effect */
+  background-color: #fff; /* Background color inside the form */
+  box-shadow: 0 4px 8px rgba(0 0 0 / 20%); /* Optional shadow for better effect */
   max-width: 600px; /* Adjust based on your needs */
   margin: auto; /* Center the form horizontally */
   display: flex;
@@ -121,9 +121,9 @@ form input[type="submit"]:hover {
   flex-wrap: wrap; /* Ensure buttons wrap if they exceed screen width */
 }
 
-.btn, 
-.download-button, 
-.guest-button, 
+.btn,
+.download-button,
+.guest-button,
 .delete-button {
   background-color: #000; /* צבע רקע אחיד לכל הכפתורים */
   color: white; /* צבע טקסט אחיד לכל הכפתורים */
