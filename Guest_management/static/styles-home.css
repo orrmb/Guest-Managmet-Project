@@ -1,182 +1,186 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f5;
-    margin: 0;
-    padding: 0;
-    text-align: right;
-    direction: rtl;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto; /* Allow vertical scroll */
-    position: relative; /* Positioning context for emoji rain */
-    min-height: 100vh; /* Ensure body takes at least viewport height */
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f5;
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        direction: rtl;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+        overflow-y: auto; /* Allow vertical scroll */
+        position: relative; /* Positioning context for emoji rain */
+        min-height: 100vh; /* Ensure body takes at least viewport height */
 }
 
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #000000;
-    color: white;
-    padding: 10px;
-    z-index: 1000; /* Ensure header is on top of other elements */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: block;
-    text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #000;
+        color: white;
+        padding: 10px;
+        z-index: 1000; /* Ensure header is on top of other elements */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 10%);
+        display: block;
+        text-align: center;
 }
 
 .main-content {
-    padding: 100px 20px 20px; /* Add padding to avoid overlap with header */
-    position: relative; /* Ensure content is above the emoji rain */
-    z-index: 1; /* Content above the emoji rain */
+        padding: 100px 20px 20px; /* Add padding to avoid overlap with header */
+        position: relative; /* Ensure content is above the emoji rain */
+        z-index: 1; /* Content above the emoji rain */
 }
 
 .form-image-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px auto; /* Adjust margin for spacing */
-    max-width: 1200px;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    margin-top: 35px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 5px auto; /* Adjust margin for spacing */
+        max-width: 1200px;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 15%);
+        margin-top: 35px;
 }
 
-.imageContainer {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 20px;
+.imagecontainer {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 20px;
 }
 
 .imageContainer img {
-    max-height: 300px;
-    max-width: 200px;
-    border-radius: 15px;
-    transition: transform 0.3s ease-in-out;
+        max-height: 300px;
+        max-width: 200px;
+        border-radius: 15px;
+        transition: transform 0.3s ease-in-out;
 }
 
 .imageContainer img:hover {
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 form {
-    border: 2px solid #000000; /* Black border */
-    border-radius: 8px; /* Rounded corners, optional */
-    padding: 20px; /* Space between border and content */
-    background-color: #ffffff; /* Background color inside the form */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for better effect */
-    max-width: 600px; /* Adjust based on your needs */
-    margin: auto; /* Center the form horizontally */
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center children horizontally */
+        border: 2px solid #000000; /* Black border */
+        border-radius: 8px; /* Rounded corners, optional */
+        padding: 20px; /* Space between border and content */
+        background-color: #ffffff; /* Background color inside the form */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 20%); /* Optional shadow for better effect */
+        max-width: 600px; /* Adjust based on your needs */
+        margin: auto; /* Center the form horizontally */
+        display: flex;
+        flex-direction: column; /* Stack children vertically */
+        align-items: center; /* Center children horizontally */
 }
 
 form label {
-    display: block;
-    margin-bottom: 10px;
-    color: #2d3436;
-    font-weight: bold;
-    width: 100%;
-    text-align: right;
+        display: block;
+        margin-bottom: 10px;
+        color: #2d3436;
+        font-weight: bold;
+        width: 100%;
+        text-align: right;
 }
 
 form input[type="text"],
 form input[type="number"],
 form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 2px solid #4b6584;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 1em;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #4b6584;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 1em;
 }
 
 form input[type="submit"] {
-    background-color: #000000;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s;
-    margin-top: 50px; /* Space above the button */
+        background-color: #000;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2em;
+        transition: background-color 0.3s;
+        margin-top: 50px; /* Space above the button */
 }
 
 form input[type="submit"]:hover {
-    background-color: #2d3436;
-    margin-right: 10px;
+        background-color: #2d3436;
+        margin-right: 10px;
 }
 
 .button-group {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-    flex-wrap: wrap; /* Ensure buttons wrap if they exceed screen width */
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap; /* Ensure buttons wrap if they exceed screen width */
 }
 
-.btn, .download-button, .guest-button, .delete-button {
-    background-color: #000000; /* צבע רקע אחיד לכל הכפתורים */
-    color: white; /* צבע טקסט אחיד לכל הכפתורים */
-    border: none; /* אין גבולות לכפתורים */
-    border-radius: 8px; /* פינות מעוגלות לכפתורים */
-    cursor: pointer; /* סמן עכבר ידני */
-    font-size: 1.2em; /* גודל טקסט אחיד לכל הכפתורים */
-    transition: background-color 0.3s, transform 0.3s; /* אפקטי מעבר */
-    margin: 5px; /* רווחים מסביב לכל כפתור */
-    padding: 10px 20px; /* רווח פנימי אחיד לכפתורים */
-    width: 150px; /* רוחב אחיד לכל הכפתורים */
-    text-align: center; /* יישור טקסט במרכז */
+.btn, 
+.download-button, 
+.guest-button, 
+.delete-button {
+        background-color: #000; /* צבע רקע אחיד לכל הכפתורים */
+        color: white; /* צבע טקסט אחיד לכל הכפתורים */
+        border: none; /* אין גבולות לכפתורים */
+        border-radius: 8px; /* פינות מעוגלות לכפתורים */
+        cursor: pointer; /* סמן עכבר ידני */
+        font-size: 1.2em; /* גודל טקסט אחיד לכל הכפתורים */
+        transition: background-color 0.3s, transform 0.3s; /* אפקטי מעבר */
+        margin: 5px; /* רווחים מסביב לכל כפתור */
+        padding: 10px 20px; /* רווח פנימי אחיד לכפתורים */
+        width: 150px; /* רוחב אחיד לכל הכפתורים */
+        text-align: center; /* יישור טקסט במרכז */
 }
 
-.btn:hover, .download-button:hover, .guest-button:hover, .delete-button:hover {
-    background-color: #2d3436; /* צבע רקע חדש כשמרחפים על הכפתור */
-    transform: scale(1.05); /* אפקט התקרבות בעת רחיפה */
+.btn:hover, 
+.download-button:hover, 
+.guest-button:hover, 
+.delete-button:hover {
+        background-color: #2d3436; /* צבע רקע חדש כשמרחפים על הכפתור */
+        transform: scale(1.05); /* אפקט התקרבות בעת רחיפה */
 }
-
 
 .emoji-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none; /* Ignore mouse events */
-    z-index: -1; /* Place behind other content */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none; /* Ignore mouse events */
+        z-index: -1; /* Place behind other content */
 }
 
 .emoji {
-    position: absolute;
-    white-space: nowrap;
-    pointer-events: none; /* Ignore mouse events */
+        position: absolute;
+        white-space: nowrap;
+        pointer-events: none; /* Ignore mouse events */
 }
 
 .guest-input-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
 }
 
 .guest-input-group input[type="number"] {
-    width: 80px;
-    text-align: center;
-    border-radius: 8px;
-    border: 2px solid #4b6584;
-    margin: 0 10px;
+        width: 80px;
+        text-align: center;
+        border-radius: 8px;
+        border: 2px solid #4b6584;
+        margin: 0 10px;
 }
 
 .guest-input-group .btn {
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-    font-size: 1.5em;
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        font-size: 1.5em;
 }
-
