@@ -4,7 +4,7 @@ on: push
 
 jobs:
   App:
-    name: Lint code base
+    name: Check the app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
