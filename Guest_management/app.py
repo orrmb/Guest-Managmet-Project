@@ -12,7 +12,8 @@ app = Flask(__name__)
 # Database setup
 def init_db():
     with sqlite3.connect('people.db') as conn:
-        conn.execute('''
+        conn.execute(
+            """"
             CREATE TABLE IF NOT EXISTS people (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -21,15 +22,16 @@ def init_db():
                 side TEXT NOT NULL,
                 relationship TEXT NOT NULL
             )
-        ''')
+        
+        """)
         conn.commit()
 
 
-@app.route('/')
+@app.route("/")
 def index():
     return render_template('index.html')
 
-@app.route('/submit', methods=['POST'])
+@app.route("/submit", methods=["POST"])
 def submit():
     name = request.form['name']
     phone = request.form['phone']
@@ -44,7 +46,7 @@ def submit():
     return redirect('/')
 
 
-@app.route('/download')
+@app.route("/download")
 def download():
     # Fetch data from the database
     with sqlite3.connect('people.db') as conn:
@@ -91,7 +93,7 @@ def download():
     return send_file(output, as_attachment=True, download_name='people.xlsx', mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 
-@app.route('/clear', methods=['POST'])
+@app.route("/clear", methods=["POST"])
 def clear():
     with sqlite3.connect('people.db') as conn:
         cursor = conn.cursor()
@@ -111,7 +113,7 @@ def get_total_guests():
         return total_guests
 
 
-@app.route('/guest_table', methods=['GET'])
+@app.route("/guest_table", methods=["GET"])
 def guest_table():
     with sqlite3.connect('people.db') as conn:
         cursor = conn.cursor()
@@ -127,7 +129,7 @@ def guest_table():
         return render_template('guest_table.html', rows=myresulet, totalguests = total_guests)
 
     
-@app.route('/delete', methods=['POST'])
+@app.route("/delete", methods=["POST"])
 def delete_guest():
     guest_id = request.form['id']
     with sqlite3.connect('people.db') as conn:
@@ -137,26 +139,26 @@ def delete_guest():
     return jsonify({'totalguests': total_guests})
 
 
-@app.route('/edit', methods=['POST'])
+@app.route("/edit", methods=["POST"])
 def edit_guest():
     guest_id = request.form['id']
-    name = request.form['name']
-    phone = request.form['phone']
-    number_guests = request.form['number']
-    side = request.form['side']
-    relationship = request.form['relationship']
+    name_edit = request.form['name']
+    phone_edit = request.form['phone']
+    number_guests_edit = request.form['number']
+    side_edit = request.form['side']
+    relationship_edit = request.form['relationship']
     
     with sqlite3.connect('people.db') as conn:
         conn.execute('''
             UPDATE people
             SET name = ?, phone = ?, number_guests = ?, side = ?, relationship = ?
             WHERE id = ?
-        ''', (name, phone, number_guests, side, relationship, guest_id))
+        ''', (name_edit , phone_edit , number_guests_edit, side_edit , relationship_edit , guest_id))
         conn.commit()
         total_guests= get_total_guests()
     return jsonify({'totalguests': total_guests})
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     init_db()
     app.run(debug=True)
