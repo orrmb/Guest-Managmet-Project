@@ -14,6 +14,7 @@ def init_db():
     with sqlite3.connect("people.db") as conn:
         conn.execute(
             """
+            """
             CREATE TABLE IF NOT EXISTS people (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -33,6 +34,7 @@ def index():
     return render_template("index.html")
 
 
+
 @app.route("/submit", methods=["POST"])
 def submit():
     name = request.form["name"]
@@ -46,6 +48,10 @@ def submit():
             "INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
             (name, phone, number_guests, side, relationship),
         )
+        cursor.execute(
+            "INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
+            (name, phone, number_guests, side, relationship),
+        )
         conn.commit()
     return redirect("/")
 
@@ -54,6 +60,9 @@ def submit():
 def download():
     # Fetch data from the database
     with sqlite3.connect("people.db") as conn:
+        df = pd.read_sql_query(
+            "SELECT name, phone, number_guests, side, relationship FROM people", conn
+        )
         df = pd.read_sql_query(
             "SELECT name, phone, number_guests, side, relationship FROM people", conn
         )
@@ -71,6 +80,7 @@ def download():
             cell.alignment = Alignment(horizontal="center")
             cell.font = Font(size=14)
         
+
         # Set column width to fit the content and align to center
         for column in sheet.columns:
             max_length = 0
@@ -88,6 +98,7 @@ def download():
 
             # Adjust the width of the column based on the maximum content length
             adjusted_width = max_length + 2
+            adjusted_width = max_length + 2
             sheet.column_dimensions[column[0].column_letter].width = adjusted_width
 
         # Make the sheet RTL
@@ -96,6 +107,12 @@ def download():
     output.seek(0)
 
     # Serve the file as a downloadable attachment
+    return send_file(
+        output,
+        as_attachment=True,
+        download_name="people.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
     return send_file(
         output,
         as_attachment=True,
@@ -151,6 +168,7 @@ def delete_guest():
         conn.execute("DELETE FROM people WHERE id = ?", (guest_id,))
         conn.commit()
         total_guests = get_total_guests()
+        total_guests = get_total_guests()
     return jsonify({"totalguests": total_guests})
 
 
@@ -164,6 +182,8 @@ def edit_guest():
     relationship_edit = request.form["relationship"]
 
     with sqlite3.connect("people.db") as conn:
+        conn.execute(
+            """
         conn.execute(
             """
             UPDATE people
@@ -180,6 +200,7 @@ def edit_guest():
             ),
         )
         conn.commit()
+        total_guests = get_total_guests()
         total_guests = get_total_guests()
     return jsonify({"totalguests": total_guests})
 
