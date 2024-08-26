@@ -1,0 +1,14 @@
+name: Test the Application
+
+on: push
+
+jobs:
+  App:
+    name: Lint code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+        name: test the app
+        run: python Guest_management\tests_porject\test-add-users.py
