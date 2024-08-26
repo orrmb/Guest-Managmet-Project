@@ -13,7 +13,7 @@ app = Flask(__name__)
 def init_db():
     with sqlite3.connect("people.db") as conn:
         conn.execute(
-            """"
+            """
             CREATE TABLE IF NOT EXISTS people (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -32,6 +32,7 @@ def init_db():
 def index():
     return render_template("index.html")
 
+
 @app.route("/submit", methods=["POST"])
 def submit():
     name = request.form["name"]
@@ -41,8 +42,10 @@ def submit():
     relationship = request.form["relationship"]
     with sqlite3.connect("people.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
-                       (name, phone, number_guests, side, relationship))
+        cursor.execute(
+            "INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
+            (name, phone, number_guests, side, relationship),
+        )
         conn.commit()
     return redirect("/")
 
@@ -51,7 +54,9 @@ def submit():
 def download():
     # Fetch data from the database
     with sqlite3.connect("people.db") as conn:
-        df = pd.read_sql_query("SELECT name, phone, number_guests, side, relationship FROM people", conn)
+        df = pd.read_sql_query(
+            "SELECT name, phone, number_guests, side, relationship FROM people", conn
+        )
 
     # Convert DataFrame to Excel
     output = BytesIO()
@@ -66,6 +71,7 @@ def download():
             cell.alignment = Alignment(horizontal="center")
             cell.font = Font(size=14)
         
+
         # Set column width to fit the content and align to center
         for column in sheet.columns:
             max_length = 0
@@ -82,7 +88,7 @@ def download():
                     pass
 
             # Adjust the width of the column based on the maximum content length
-            adjusted_width = (max_length + 2)
+            adjusted_width = max_length + 2
             sheet.column_dimensions[column[0].column_letter].width = adjusted_width
 
         # Make the sheet RTL
@@ -91,7 +97,12 @@ def download():
     output.seek(0)
 
     # Serve the file as a downloadable attachment
-    return send_file(output, as_attachment=True, download_name="people.xlsx", mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    return send_file(
+        output,
+        as_attachment=True,
+        download_name="people.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
 
 
 @app.route("/clear", methods=["POST"])
@@ -120,14 +131,17 @@ def guest_table():
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM people")
         myresulet = cursor.fetchall()
-        total_guests=get_total_guests()
+
+        total_guests = get_total_guests()
         
     if not myresulet:
         logger.info("The table is empty")
         return render_template("empty-table.html")
     else:
         logger.info("Displaying the table in route /guest_table")
-        return render_template("guest_table.html", rows=myresulet, totalguests = total_guests)
+        return render_template(
+            "guest_table.html", rows=myresulet, totalguests = total_guests
+        )
 
     
 @app.route("/delete", methods=["POST"])
@@ -136,7 +150,7 @@ def delete_guest():
     with sqlite3.connect("people.db") as conn:
         conn.execute("DELETE FROM people WHERE id = ?", (guest_id,))
         conn.commit()
-        total_guests= get_total_guests()
+        total_guests = get_total_guests()
     return jsonify({"totalguests": total_guests})
 
 
@@ -148,15 +162,26 @@ def edit_guest():
     number_guests_edit = request.form["number"]
     side_edit = request.form["side"]
     relationship_edit = request.form["relationship"]
+
     
     with sqlite3.connect("people.db") as conn:
-        conn.execute("""
+        conn.execute(
+            """
             UPDATE people
             SET name = ?, phone = ?, number_guests = ?, side = ?, relationship = ?
             WHERE id = ?
-        """, (name_edit , phone_edit , number_guests_edit, side_edit , relationship_edit , guest_id))
+        """, 
+            (
+                name_edit, 
+                phone_edit, 
+                number_guests_edit, 
+                side_edit, 
+                relationship_edit, 
+                guest_id
+            ),
+        )
         conn.commit()
-        total_guests= get_total_guests()
+        total_guests = get_total_guests()
     return jsonify({"totalguests": total_guests})
 
 
