@@ -4,7 +4,7 @@ import pandas as pd
 from io import BytesIO
 from openpyxl.styles.alignment import Alignment
 from openpyxl.styles import Font
-from logging import Logger
+from loguru import logger
 
 app = Flask(__name__)
 
