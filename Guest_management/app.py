@@ -44,6 +44,7 @@ def submit():
     
     return redirect('/')
 
+
 @app.route('/download')
 def download():
     # Fetch data from the database
