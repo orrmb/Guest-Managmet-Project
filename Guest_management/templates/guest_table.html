@@ -83,7 +83,7 @@
         margin-top: 10px;
       }
 
-      .total_guest {
+      .totalguest {
         text-align: center;
         margin-top: 10px;
         font-size: 1.2em;
@@ -152,7 +152,7 @@
           oninput="searchTable()"
         />
       </div>
-      <p class="total_guest">סך כל מוזמנים: {{ total_guests }}</p>
+      <p class="totalguest">סך כל מוזמנים: {{ totalguests }}</p>
       <div class="table-container">
         <table class="table table-striped table-bordered">
           <thead class="thead-dark">
@@ -358,8 +358,8 @@
 
             // עדכון סך כל המוזמנים
             document.querySelector(
-              ".total_guest"
-            ).textContent = `סך כל מוזמנים: ${data.total_guests}`;
+              ".totalguest"
+            ).textContent = `סך כל מוזמנים: ${data.totalguests}`;
           })
           .catch((error) => console.error("Error:", error));
       }
@@ -379,8 +379,8 @@
           .then((data) => {
             row.remove();
             document.querySelector(
-              ".total_guest"
-            ).textContent = `סך כל מוזמנים: ${data.total_guests}`;
+              ".totalguest"
+            ).textContent = `סך כל מוזמנים: ${data.totalguests}`;
           })
           .catch((error) => console.error("Error:", error));
       }

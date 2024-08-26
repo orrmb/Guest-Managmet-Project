@@ -124,7 +124,7 @@ def guest_table():
         return render_template('empty-table.html')
     else:
         logger.info('Displaying the table in route /guest_table')
-        return render_template('guest_table.html', rows=myresulet, total_guests=total_guests)
+        return render_template('guest_table.html', rows=myresulet, totalguests = total_guests)
 
     
 @app.route('/delete', methods=['POST'])
@@ -134,7 +134,7 @@ def delete_guest():
         conn.execute('DELETE FROM people WHERE id = ?', (guest_id,))
         conn.commit()
         total_guests= get_total_guests()
-    return jsonify({'total_guests': total_guests})
+    return jsonify({'totalguests': total_guests})
 
 
 @app.route('/edit', methods=['POST'])
@@ -154,7 +154,7 @@ def edit_guest():
         ''', (name, phone, number_guests, side, relationship, guest_id))
         conn.commit()
         total_guests= get_total_guests()
-    return jsonify({'total_guests': total_guests})
+    return jsonify({'totalguests': total_guests})
 
 
 if __name__ == '__main__':
