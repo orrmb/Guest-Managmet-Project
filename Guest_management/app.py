@@ -23,14 +23,14 @@ def init_db():
                 relationship TEXT NOT NULL
             )
         
-        """)
+        """
+        )
         conn.commit()
 
 
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 
 @app.route("/submit", methods=["POST"])
@@ -42,10 +42,6 @@ def submit():
     relationship = request.form["relationship"]
     with sqlite3.connect("people.db") as conn:
         cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
-            (name, phone, number_guests, side, relationship),
-        )
         cursor.execute(
             "INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
             (name, phone, number_guests, side, relationship),
@@ -77,7 +73,6 @@ def download():
         for cell in sheet[last_row]:
             cell.alignment = Alignment(horizontal="center")
             cell.font = Font(size=14)
-        
 
         # Set column width to fit the content and align to center
         for column in sheet.columns:
@@ -141,7 +136,6 @@ def guest_table():
         myresulet = cursor.fetchall()
 
         total_guests = get_total_guests()
-        
 
     if not myresulet:
         logger.info("The table is empty")
