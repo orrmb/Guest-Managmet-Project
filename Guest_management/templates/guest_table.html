@@ -165,7 +165,7 @@
               <th>פעולה</th>
             </tr>
           </thead>
-          <tbody id="guestTable">
+          <tbody id="guestable">
             {% for row in rows %}
             <tr data-id="{{ row[0] }}">
               <td class="editable">{{ row[1] }}</td>
@@ -218,7 +218,7 @@
       function searchTable() {
         const input = document.querySelector(".search-input");
         const filter = input.value.toLowerCase();
-        const rows = document.querySelectorAll("#guestTable tr");
+        const rows = document.querySelectorAll("#guestable tr");
 
         rows.forEach((row) => {
           const cells = row.getElementsByTagName("td");
