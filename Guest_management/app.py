@@ -8,6 +8,7 @@ from loguru import logger
 
 app = Flask(__name__)
 
+
 # Database setup
 def init_db():
     with sqlite3.connect('people.db') as conn:
@@ -35,13 +36,11 @@ def submit():
     number_guests = request.form['number']
     side = request.form['side']
     relationship = request.form['relationship']
-
-
     with sqlite3.connect('people.db') as conn:
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)', (name, phone, number_guests, side, relationship))
+        cursor.execute('INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)', 
+                       (name, phone, number_guests, side, relationship))
         conn.commit()
-    
     return redirect('/')
 
 
@@ -103,13 +102,13 @@ def clear():
 
 
 def get_total_guests():
-        with sqlite3.connect('people.db') as conn:
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM people')
-            myresulet = cursor.fetchall()
-            total_guests = sum(row[3] for row in myresulet)
-            conn.commit()
-            return total_guests
+    with sqlite3.connect('people.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM people')
+        myresulet = cursor.fetchall()
+        total_guests = sum(row[3] for row in myresulet)
+        conn.commit()
+        return total_guests
 
 
 @app.route('/guest_table', methods=['GET'])
