@@ -43,6 +43,7 @@ def submit():
     with sqlite3.connect("people.db") as conn:
         cursor = conn.cursor()
         cursor.execute(
+
             "INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
             (name, phone, number_guests, side, relationship),
         )
@@ -173,8 +174,10 @@ def edit_guest():
             UPDATE people
             SET name = ?, phone = ?, number_guests = ?, side = ?, relationship = ?
             WHERE id = ?
+            
         """, 
             (
+
                 name_edit, 
                 phone_edit, 
                 number_guests_edit, 
