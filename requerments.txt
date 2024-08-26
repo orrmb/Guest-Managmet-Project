@@ -1,0 +1,4 @@
+requests
+random
+flask
+sqlite3
