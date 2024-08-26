@@ -14,7 +14,6 @@ def init_db():
     with sqlite3.connect("people.db") as conn:
         conn.execute(
             """
-            """
             CREATE TABLE IF NOT EXISTS people (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -24,8 +23,7 @@ def init_db():
                 relationship TEXT NOT NULL
             )
         
-        """
-        )
+        """)
         conn.commit()
 
 
@@ -113,12 +111,6 @@ def download():
         download_name="people.xlsx",
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
-    return send_file(
-        output,
-        as_attachment=True,
-        download_name="people.xlsx",
-        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    )
 
 
 @app.route("/clear", methods=["POST"])
@@ -182,8 +174,6 @@ def edit_guest():
     relationship_edit = request.form["relationship"]
 
     with sqlite3.connect("people.db") as conn:
-        conn.execute(
-            """
         conn.execute(
             """
             UPDATE people
