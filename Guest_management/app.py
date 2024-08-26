@@ -3,7 +3,8 @@ import sqlite3
 import pandas as pd
 from io import BytesIO
 from openpyxl.styles.alignment import Alignment
-from loguru import logger
+from openpyxl.styles import Font
+from logging import Logger
 
 app = Flask(__name__)
 
@@ -47,14 +48,21 @@ def submit():
 def download():
     # Fetch data from the database
     with sqlite3.connect('people.db') as conn:
-        df = pd.read_sql_query('SELECT * FROM people', conn)
+        df = pd.read_sql_query('SELECT name, phone, number_guests, side, relationship FROM people', conn)
 
     # Convert DataFrame to Excel
     output = BytesIO()
     with pd.ExcelWriter(output, engine='openpyxl') as writer:
         df.to_excel(writer, index=False, sheet_name='People')
         sheet = writer.sheets['People']
-
+        # Add the total number of guests in the last row
+        total_guests = get_total_guests()
+        sheet.append([f' {total_guests} :מספר המוזמנים '])
+        last_row = sheet.max_row
+        for cell in sheet[last_row]:
+            cell.alignment = Alignment(horizontal='center')
+            cell.font = Font(size=14)
+        
         # Set column width to fit the content and align to center
         for column in sheet.columns:
             max_length = 0
@@ -74,10 +82,14 @@ def download():
             adjusted_width = (max_length + 2)
             sheet.column_dimensions[column[0].column_letter].width = adjusted_width
 
+        # Make the sheet RTL
+        sheet.sheet_view.rightToLeft = True
+
     output.seek(0)
 
     # Serve the file as a downloadable attachment
-    return send_file(output, as_attachment=True, download_name='people.xlsx',mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    return send_file(output, as_attachment=True, download_name='people.xlsx', mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
 
 @app.route('/clear', methods=['POST'])
 def clear():

@@ -123,8 +123,8 @@
         emojiContainer.classList.add("emoji-container");
         document.body.appendChild(emojiContainer);
 
-        const emoji = "💍      🖤"; // Wedding ring emoji
-        const numberOfEmojis = 100; // Number of emojis
+        const emoji = "💍         🖤"; // Wedding ring emoji
+        const numberOfEmojis = 80; // Number of emojis
         for (let i = 0; i < numberOfEmojis; i++) {
           let emojiElement = document.createElement("div");
           emojiElement.textContent = emoji;
@@ -151,7 +151,7 @@
 
             animateEmoji(emojiElement);
           }
-        }, 12000); // Add new emojis every 5 seconds
+        }, 20000); // Add new emojis every 20 seconds
       }
 
       function animateEmoji(emojiElement) {
