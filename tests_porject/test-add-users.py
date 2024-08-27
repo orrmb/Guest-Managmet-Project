@@ -2,7 +2,6 @@ import random
 import requests
 
 for i in range(10):
-
         relationship = random.choice(["משפחה רחוקה", "משפחה קרובה", "חברים"])
         side = random.choice(["חתן", "כלה"])
         number = random.randint(1, 5)
@@ -18,7 +17,3 @@ for i in range(10):
 
         response = requests.post('http://127.0.0.1:5000/submit', headers=headers, data=data)
         print(response)
-
-
-
-

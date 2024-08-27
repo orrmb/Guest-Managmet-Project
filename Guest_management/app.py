@@ -22,7 +22,6 @@ def init_db():
                 side TEXT NOT NULL,
                 relationship TEXT NOT NULL
             )
-        
         """
         )
         conn.commit()
@@ -43,12 +42,13 @@ def submit():
     with sqlite3.connect("people.db") as conn:
         cursor = conn.cursor()
         cursor.execute(
-
             "INSERT INTO people (name, phone, number_guests, side, relationship) VALUES (?, ?, ?, ?, ?)", 
             (name, phone, number_guests, side, relationship),
         )
         conn.commit()
     return redirect("/")
+
+
 
 
 @app.route("/download")
