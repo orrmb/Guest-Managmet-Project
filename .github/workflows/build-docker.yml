@@ -5,7 +5,7 @@ on:
 
 env:
   IMAGE_NAME: orrmb/guest-managment
-  IMAGE_TAG: "0.0.1"
+  IMAGE_TAG: ":0.0.1"
 
 jobs:
   docker:
