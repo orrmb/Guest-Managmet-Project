@@ -1,2 +1,5 @@
 requests
 flask
+openpyxl
+pandas
+loguru
