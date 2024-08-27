@@ -1,12 +1,11 @@
+import sqlite3
+from io import BytesIO
+
+import pandas as pd
 from flask import Flask, jsonify, redirect, render_template, request, send_file
 from loguru import logger
 from openpyxl.styles import Font
 from openpyxl.styles.alignment import Alignment
-import sqlite3
-import pandas as pd
-from io import BytesIO
-
-
 
 
 app = Flask(__name__)
