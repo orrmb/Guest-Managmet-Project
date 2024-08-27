@@ -4,7 +4,7 @@ on:
   push:
 
 env:
-  IMAGE_NAME: user/app
+  IMAGE_NAME: orrmb/guest-managment
 
 jobs:
   docker:
