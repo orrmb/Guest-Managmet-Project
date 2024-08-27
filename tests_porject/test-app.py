@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, send_file, jsonify
 
 
-
 app = Flask(__name__)
 
 

@@ -3,7 +3,7 @@ name: Super-Linter
 on:
   push:
     branches: ["main"]
-    paths: ["Guest_management/*", "tests_porject/*"]
+    paths: ["Guest_management/**", "tests_porject/**"]
 
 jobs:
   super-lint:
