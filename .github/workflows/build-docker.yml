@@ -5,6 +5,7 @@ on:
 
 env:
   IMAGE_NAME: orrmb/guest-managment
+  IMAGE_TAG: "0.0.1"
 
 jobs:
   docker:
@@ -28,6 +29,5 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          tags: ${{ steps.meta.outputs.tags }}
-          annotations: ${{ steps.meta.outputs.annotations }}
+          tags: ${{ env.IMAGE_TAG }}
           push: true
