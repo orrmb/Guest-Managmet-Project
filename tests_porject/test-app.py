@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_file, jsonify
-
+from flask import Flask, jsonify, redirect, render_template, request, send_file
 
 app = Flask(__name__)
 

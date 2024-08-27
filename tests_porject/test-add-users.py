@@ -1,6 +1,6 @@
 import random
-import requests
 
+import requests
 
 for i in range(10):
         relationship = random.choice(["משפחה רחוקה", "משפחה קרובה", "חברים"])
