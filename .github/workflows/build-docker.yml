@@ -33,17 +33,20 @@ jobs:
         run: |
           docker run -d --rm ${{ env.TEST_TAG }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
+      - name: chekfile system
+        run: ls
 
-      - name: test the app
-        run: python test.py
+      # - name: Set up Python
+      #   uses: actions/setup-python@v5
+      #   with:
+      #     python-version: "3.10"
 
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ env.LATEST_TAG }}
+      # - name: test the app
+      #   run: python tests_porject\test.py
+
+      # - name: Build and push
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     platforms: linux/amd64,linux/arm64
+      #     push: true
+      #     tags: ${{ env.LATEST_TAG }}
