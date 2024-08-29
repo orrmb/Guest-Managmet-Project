@@ -17,8 +17,8 @@ for i in range(10):
           "relationship": relationship}
 
   response = requests.post('http://127.0.0.1:8080/submit', headers=headers, data=data)
-  if response != '<Response [200]>':
-        exit(code=500)
+  if response.status_code != 200:
+    exit(code=500)
 
       
 

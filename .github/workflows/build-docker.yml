@@ -45,10 +45,19 @@ jobs:
         run: |
           docker run -d --rm ${{ env.TEST_TAG }} -p 8080:8080
 
+      - name: Run Flask app
+        run: |
+          docker run -d -p 8080:8080 ${{ env.TEST_TAG }}
+
+      - name: Wait for Flask app to be ready
+        run: |
+          until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:8080); do
+          printf '.'
+          sleep 5
+          done
+
       - name: Test the app
         run: |
-          sleep 5s
-          docker container ls --all
           python tests_porject/test-add-users.py
 
       - name: Build and push
