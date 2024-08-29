@@ -39,7 +39,7 @@ jobs:
           python-version: "3.10"
 
       - name: test the app
-        run: python tests_porject/test.py
+        run: python test.py
 
       - name: Build and push
         uses: docker/build-push-action@v6
