@@ -43,7 +43,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --rm ${{ env.TEST_TAG }}
+          docker run -d --rm ${{ env.TEST_TAG }} -p 5000:5000
           python tests_porject/test-add-users.py
 
       - name: Build and push
