@@ -4,4 +4,4 @@ COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY Guest_management .
-ENTRYPOINT [ "python app.py" ]
+ENTRYPOINT [ "python3 app.py" ]
