@@ -4,8 +4,8 @@ on:
   push:
 
 env:
-  TEST_TAG: orrmb/Guest-app:test
-  LATEST_TAG: orrmb/Guest-app:latest
+  TEST_TAG: orrmb/guest-app:test
+  LATEST_TAG: orrmb/guest-app:latest
 
 jobs:
   docker:
