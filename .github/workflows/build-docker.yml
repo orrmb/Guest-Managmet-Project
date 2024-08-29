@@ -34,8 +34,7 @@ jobs:
           docker run -d --rm ${{ env.TEST_TAG }}
 
       - name: chekfile system
-        run: |
-          ls -la
+        run: pwd
 
       # - name: Set up Python
       #   uses: actions/setup-python@v5
