@@ -43,11 +43,11 @@ jobs:
 
       - name: Test
         run: |
-          docker run -d --rm ${{ env.TEST_TAG }} -p 5000:5000
+          docker run -d --rm ${{ env.TEST_TAG }} -p 8080:8080
 
       - name: Test the app
         run: |
-          dockr container ls --all
+          docker container ls --all
           python tests_porject/test-add-users.py
 
       - name: Build and push
