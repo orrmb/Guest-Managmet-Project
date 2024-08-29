@@ -47,7 +47,7 @@ jobs:
 
       - name: Test the app
         run: |
-          docekr container ls --all
+          dockr container ls --all
           python tests_porject/test-add-users.py
 
       - name: Build and push
