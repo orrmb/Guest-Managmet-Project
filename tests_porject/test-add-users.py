@@ -1,5 +1,5 @@
 import random
-
+import sqlite3
 import requests
 
 for i in range(10):
@@ -17,4 +17,9 @@ for i in range(10):
           "relationship": relationship}
 
   response = requests.post('http://127.0.0.1:5000/submit', headers=headers, data=data)
-  print(response)
+  if response != '<Response [200]>':
+        exit(code=500)
+
+      
+
+
