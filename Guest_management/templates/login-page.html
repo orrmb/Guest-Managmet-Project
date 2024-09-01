@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>דף התחברות</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f5;
+        margin: 0;
+        padding: 0;
+        direction: rtl;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden; /* Prevents scrolling */
+      }
+
+      .login-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+        text-align: right;
+        z-index: 1; /* Ensures the form is above images */
+      }
+
+      .login-container h1 {
+        margin-bottom: 20px;
+        font-size: 2em;
+        color: #2d3436;
+      }
+
+      .login-container label {
+        display: block;
+        margin-bottom: 10px;
+        color: #2d3436;
+        font-weight: bold;
+      }
+
+      .login-container input[type="text"],
+      .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1em;
+      }
+
+      .login-container input[type="submit"] {
+        background-color: #000;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2em;
+        transition: background-color 0.3s;
+      }
+
+      .login-container input[type="submit"]:hover {
+        background-color: #444;
+      }
+
+      /* Image container */
+      .image-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        z-index: 0; /* Ensures images are behind the form */
+      }
+
+      .image-container img {
+        width: 25%;
+        height: 100%;
+        object-fit: cover;
+        animation: slide 20s infinite alternate;
+      }
+
+      /* Keyframes for image sliding */
+      @keyframes slide {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(-100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-container">
+      <img src="static\images\wedding-login.jpeg" alt="תמונה 1" />
+      <img src="static\images\wedding2-login.jpeg" alt="תמונה 2" />
+      <img src="static\images\wedding3-login.jpeg" alt="תמונה 3" />
+      <img src="static\images\wedding4-login.jpeg" alt="תמונה 4" />
+    </div>
+
+    <div class="login-container">
+      <h1>ברוכים הבאים</h1>
+      <form action="/login" method="POST">
+        <label for="username">שם משתמש:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="הכנס את שם המשתמש"
+          required
+        />
+
+        <label for="password">סיסמה:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="הכנס סיסמה"
+          required
+        />
+
+        <input type="submit" value="התחבר" />
+      </form>
+    </div>
+  </body>
+</html>

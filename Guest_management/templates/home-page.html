@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ניהול חתונה</title>
+    <style>
+      body {
+        direction: rtl;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f4f4;
+        padding: 50px;
+        margin: 0;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #000;
+        color: white;
+        padding: 10px;
+        z-index: 1000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .main-content {
+        padding: 100px 20px 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .containerbtn {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+        margin-top: 30px;
+      }
+
+      .weddingexpenses,
+      .arrangingtable,
+      .addguest {
+        background-color: #000000;
+        border: 2px solid #1a1a1a;
+        border-radius: 15px;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 20px 30px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        user-select: none;
+        width: 200px;
+      }
+
+      .weddingexpenses:hover,
+      .arrangingtable:hover,
+      .addguest:hover {
+        box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+        transform: translateY(-2px);
+      }
+
+      .weddingexpenses:active,
+      .arrangingtable:active,
+      .addguest:active {
+        box-shadow: none;
+        transform: translateY(0);
+      }
+
+      .countdown-container {
+        margin-top: 50px;
+        text-align: center;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+      }
+
+      #countdown {
+        display: flex;
+        justify-content: flex-start; /* Align items to the start (left) */
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .time-box {
+        background-color: #e0e0e0;
+        padding: 20px;
+        border-radius: 10px;
+        min-width: 100px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .time-box span {
+        display: block;
+      }
+
+      .time-box .label {
+        font-size: 18px;
+        color: #777;
+      }
+
+      #days,
+      #hours,
+      #minutes,
+      #seconds {
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div id="date" class="date"></div>
+        <h1>אירגון חתונה</h1>
+        <div id="clock" class="clock"></div>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <h1>שלום! בחר/י אחת מהאפשרויות</h1>
+      <div class="containerbtn">
+        <form action="/addguest" method="POST">
+          <button type="submit" class="addguest">הוספת מוזמנים</button>
+        </form>
+        <form action="/arranging_tables" method="POST">
+          <button type="submit" class="arrangingtable">סידור שולחנות</button>
+        </form>
+        <form action="/wedding_expenses" method="POST">
+          <button type="submit" class="weddingexpenses">הוצאות חתונה</button>
+        </form>
+      </div>
+
+      <div class="countdown-container">
+        <h2>ספירה לאחור לאירוע</h2>
+        <div id="countdown">
+          <div class="time-box">
+            <span id="seconds"></span>
+            <span class="label">שניות</span>
+          </div>
+          <div class="time-box">
+            <span id="minutes"></span>
+            <span class="label">דקות</span>
+          </div>
+          <div class="time-box">
+            <span id="hours"></span>
+            <span class="label">שעות</span>
+          </div>
+          <div class="time-box">
+            <span id="days"></span>
+            <span class="label">ימים</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.getElementById("clock").textContent = timeString;
+      }
+
+      function updateDate() {
+        const now = new Date();
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        const dateString = now.toLocaleDateString("he-IL", options);
+        document.getElementById("date").textContent = dateString;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
+      updateDate();
+
+      // Set the date we're counting down to
+      let countDownDate = new Date("Sep 11, 2024 00:00:00").getTime();
+
+      // Update the count down every 1 second
+      let countdownFunction = setInterval(function () {
+        let now = new Date().getTime();
+        let distance = countDownDate - now;
+
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("seconds").innerHTML = seconds;
+
+        if (distance < 0) {
+          clearInterval(countdownFunction);
+          document.getElementById("countdown").innerHTML = "האירוע הסתיים!";
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>

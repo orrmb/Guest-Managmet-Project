@@ -2,13 +2,14 @@ import sqlite3
 from io import BytesIO
 
 import pandas as pd
-from flask import Flask, jsonify, redirect, render_template, request, send_file
+from flask import Flask, jsonify, redirect, render_template, request, send_file, session, url_for
 from loguru import logger
 from openpyxl.styles import Font
 from openpyxl.styles.alignment import Alignment
 
 
 app = Flask(__name__)
+app.secret_key = '12344534643634'
 
 
 # Database setup
@@ -28,12 +29,60 @@ def init_db():
         )
         conn.commit()
 
+with sqlite3.connect("flask_useres.db") as conn:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS flask_useres (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL,
+            email TEXT NOT NULL,
+            join_date DATE
 
-@app.route("/")
+        )
+    """
+    )
+    conn.commit()
+
+@app.route("/addguest")
 def index():
     return render_template("index.html")
 
 
+@app.route("/")
+def login_page():
+    return render_template("login-page.html")
+
+@app.route("/wedding_expenses")
+def wedding_expenses():
+    return render_template("wedding-expenses.html")
+
+@app.route("/arranging_tables")
+def arranging_tables():
+    return render_template("arranging-tables.html")
+
+@app.route("/home", methods=["GET"])
+def home_page():
+    return render_template("home-page.html")
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.form["username"]
+    passd = request.form["password"]
+    with sqlite3.connect("flask_useres.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            f"SELECT username, password from flask_useres where username = '{username}' ")
+        user = cursor.fetchone()
+        cursor.close()
+        if user and passd == user[1]:
+            session['username']  = user[0]
+            return redirect(url_for('home_page'))
+        else:
+            return render_template('login-page.html', error='שם משתמש או סיסמא אינם נכונים, נסה שנית או שתפנה למנהל .מערכת.')
+
+            
 @app.route("/submit", methods=["POST"])
 def submit():
     name = request.form["name"]
@@ -48,9 +97,7 @@ def submit():
             (name, phone, number_guests, side, relationship),
         )
         conn.commit()
-    return redirect("/")
-
-
+    return redirect("/addguest")
 
 
 @app.route("/download")
@@ -118,7 +165,7 @@ def clear():
         cursor.execute("DROP TABLE people")
         conn.commit()
         init_db()
-    return redirect("/")
+    return redirect("/addguest")
 
 
 def get_total_guests():
