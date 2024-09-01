@@ -44,14 +44,13 @@ with sqlite3.connect("flask_useres.db") as conn:
     )
     conn.commit()
 
-@app.route("/addguest")
-def index():
-    return render_template("index.html")
-
-
 @app.route("/")
 def login_page():
     return render_template("login-page.html")
+
+@app.route("/addguest", methods=["GET"])
+def index():
+    return render_template("index.html")
 
 @app.route("/wedding_expenses")
 def wedding_expenses():

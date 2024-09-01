@@ -124,7 +124,8 @@ form input[type="submit"]:hover {
 .btn,
 .download-button,
 .guest-button,
-.delete-button {
+.delete-button,
+.return-home {
   background-color: #000; /* צבע רקע אחיד לכל הכפתורים */
   color: white; /* צבע טקסט אחיד לכל הכפתורים */
   border: none; /* אין גבולות לכפתורים */
@@ -141,7 +142,8 @@ form input[type="submit"]:hover {
 .btn:hover,
 .download-button:hover,
 .guest-button:hover,
-.delete-button:hover {
+.delete-button:hover,
+.return-home:hover {
   background-color: #2d3436; /* צבע רקע חדש כשמרחפים על הכפתור */
   transform: scale(1.05); /* אפקט התקרבות בעת רחיפה */
 }
