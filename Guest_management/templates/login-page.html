@@ -96,6 +96,11 @@
           transform: translateX(-100%);
         }
       }
+      .error-message {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
     </style>
   </head>
   <body>
@@ -105,9 +110,11 @@
       <img src="static\images\wedding3-login.jpeg" alt="תמונה 3" />
       <img src="static\images\wedding4-login.jpeg" alt="תמונה 4" />
     </div>
-
     <div class="login-container">
       <h1>ברוכים הבאים</h1>
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% endif %}
       <form action="/login" method="POST">
         <label for="username">שם משתמש:</label>
         <input

@@ -1,6 +1,5 @@
 import sqlite3
 from io import BytesIO
-
 import pandas as pd
 from flask import Flask, jsonify, redirect, render_template, request, send_file, session, url_for
 from loguru import logger
@@ -8,9 +7,10 @@ from openpyxl.styles import Font
 from openpyxl.styles.alignment import Alignment
 
 
-app = Flask(__name__)
-app.secret_key = '12344534643634'
 
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '12-!897321kjh'
 
 # Database setup
 def init_db():
@@ -38,6 +38,23 @@ with sqlite3.connect("flask_useres.db") as conn:
             password TEXT NOT NULL,
             email TEXT NOT NULL,
             join_date DATE
+
+        )
+    """
+    )
+    conn.commit()
+
+with sqlite3.connect("expenses.db") as conn:
+    conn.execute(
+        """
+            CREATE TABLE IF NOT EXISTS expenses (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                owner TEXT NOT NULL,
+                amount REAL NOT NULL,
+                phone TEXT NOT NULL,
+                payment_date TEXT,
+                comments TEXT
 
         )
     """
@@ -106,18 +123,16 @@ def download():
         df = pd.read_sql_query(
             "SELECT name, phone, number_guests, side, relationship FROM people", conn
         )
-        df = pd.read_sql_query(
-            "SELECT name, phone, number_guests, side, relationship FROM people", conn
-        )
 
     # Convert DataFrame to Excel
     output = BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
         df.to_excel(writer, index=False, sheet_name="People")
         sheet = writer.sheets["People"]
+        
         # Add the total number of guests in the last row
         total_guests = get_total_guests()
-        sheet.append([f" {total_guests} :מספר המוזמנים "])
+        sheet.append([f"Total Guests: {total_guests}"])
         last_row = sheet.max_row
         for cell in sheet[last_row]:
             cell.alignment = Alignment(horizontal="center")
@@ -125,21 +140,7 @@ def download():
 
         # Set column width to fit the content and align to center
         for column in sheet.columns:
-            max_length = 0
-            column = [cell for cell in column]
-            for cell in column:
-                # Center align the content
-                cell.alignment = Alignment(horizontal="center")
-
-                # Calculate the maximum length of the content in the column
-                try:
-                    if len(str(cell.value)) > max_length:
-                        max_length = len(str(cell.value))
-                except:
-                    pass
-
-            # Adjust the width of the column based on the maximum content length
-            adjusted_width = max_length + 2
+            max_length = max(len(str(cell.value)) for cell in column if cell.value)
             adjusted_width = max_length + 2
             sheet.column_dimensions[column[0].column_letter].width = adjusted_width
 
@@ -238,6 +239,87 @@ def edit_guest():
         total_guests = get_total_guests()
         total_guests = get_total_guests()
     return jsonify({"totalguests": total_guests})
+
+@app.route("/save_expense", methods=["POST"])
+def save_expense():
+    data = request.json
+    expense_id = data.get("id")
+    name = data.get("name")
+    owner = data.get("owner")
+    amount = data.get("amount")
+    phone = data.get("phone")
+    payment_date = data.get("payment_date")
+    comments = data.get("comments")
+
+    with sqlite3.connect("expenses.db") as conn:
+        cursor = conn.cursor()
+        if expense_id:
+            cursor.execute(
+                """
+                UPDATE expenses
+                SET name = ?, owner = ?, amount = ?, phone = ?, payment_date = ?, comments = ?
+                WHERE id = ?
+                """,
+                (name, owner, amount, phone, payment_date, comments, expense_id)
+            )
+        else:
+            cursor.execute(
+                """
+                INSERT INTO expenses (name, owner, amount, phone, payment_date, comments)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (name, owner, amount, phone, payment_date, comments)
+            )
+        conn.commit()
+    return jsonify({"success": True})
+
+@app.route("/get_expenses")
+def get_expenses():
+    with sqlite3.connect("expenses.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM expenses")
+        expenses = cursor.fetchall()
+    return jsonify([
+        {
+            "id": row[0],
+            "name": row[1],
+            "owner": row[2],
+            "amount": row[3],
+            "phone": row[4],
+            "payment_date": row[5],
+            "comments": row[6]
+        }
+        for row in expenses
+    ])
+
+@app.route("/get_expense/<int:id>")
+def get_expense(id):
+    with sqlite3.connect("expenses.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM expenses WHERE id = ?", (id,))
+        expense = cursor.fetchone()
+    if expense:
+        return jsonify({
+            "id": expense[0],
+            "name": expense[1],
+            "owner": expense[2],
+            "amount": expense[3],
+            "phone": expense[4],
+            "payment_date": expense[5],
+            "comments": expense[6]
+        })
+    else:
+        return jsonify({}), 404
+
+@app.route("/delete_expense/<int:id>", methods=["DELETE"])
+def delete_expense(id):
+    with sqlite3.connect("expenses.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM expenses WHERE id = ?", (id,))
+        conn.commit()
+    return jsonify({"success": True})
+
+
 
 
 if __name__ == "__main__":
